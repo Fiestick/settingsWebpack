@@ -52,8 +52,11 @@ module.exports = {
         }
       ]
     }, {
-      test: /\.(ttf|woff|woff2|eot|otf)$/,
-      use: ['file-loader'],
+      test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]'
+      }
     }]
   },
 
@@ -71,6 +74,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/img`, to: `${PATHS.assets}img`},
+      { from: `${PATHS.src}/fonts`, to: `${PATHS.assets}fonts`},
     ]),
     new CleanWebpackPlugin()
   ]
