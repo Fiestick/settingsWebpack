@@ -5,8 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 const PATHS = {
-  src: path.join(__dirname, './src'),
-  dist: path.join(__dirname, './dist'),
+  src: path.join(__dirname, '../src'),
+  dist: path.join(__dirname, '../dist'),
   assets: 'assets/',
 }
 
@@ -22,7 +22,6 @@ module.exports = {
   output: {
     filename: `${PATHS.assets}js/[name].js`,
     path: PATHS.dist,
-    publicPath: '/'
   },
   module: {
     rules: [{
@@ -31,7 +30,7 @@ module.exports = {
       exclude: '/node_modules/'
     }, {
       test: /\.(png|jpg|gif|svg)$/,
-      loader: 'file-loader',
+      loader: 'url-loader',
       options: {
         name: '[name].[ext]'
       }
@@ -45,7 +44,7 @@ module.exports = {
           options: { sourceMap: true }
         }, {
           loader: 'postcss-loader',
-          options: { sourceMap: true, config: {path: `${PATHS.src}/js/postcss.config.js`}}
+          options: { sourceMap: true, config: {path: `postcss.config.js`}}
         }, {
           loader: 'sass-loader',
           options: { sourceMap: true }
@@ -53,9 +52,9 @@ module.exports = {
       ]
     }, {
       test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file-loader',
+      loader: 'url-loader',
       options: {
-        name: '[name].[ext]'
+        name: `${PATHS.assets}/fonts/[name].[ext]`,
       }
     }]
   },
