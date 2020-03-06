@@ -1,6 +1,18 @@
-doctype html
-html(lang='en')
-  head
-    title Jade
-  body
-    h1 Jade - node template engine
+extends ../layout/main
+
+block variables
+  - const title = 'Webpack + Pug';
+  - const description = 'description for Webpack + Pug';
+  - const pageClass = 'index-page';
+
+
+block content
+  section
+    .container
+      h1 Jade - node template engine
+  section
+    .container
+      h1 Jade - node template engine
+  section
+    .container
+      h1 Jade - node template engine

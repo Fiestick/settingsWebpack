@@ -33,6 +33,9 @@ module.exports = {
       loader: 'babel-loader',
       exclude: '/node_modules/'
     }, {
+      test: /\.pug$/,
+      loader: 'pug-loader'
+    }, {
       test: /\.vue$/,
       loader: 'vue-loader',
       options: {
@@ -80,22 +83,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename:  `${PATHS.assets}css/style.css`,
     }),
-    new HtmlWebpackPlugin({
-      hash: false,
-      template: `${PAGES_DIR}/index.html`,
-      filename: './index.html',
-      // minify: {
-      //   collapseWhitespace: true
-      // }
-    }),
-    new HtmlWebpackPlugin({
-      hash: false,
-      template: `${PAGES_DIR}/about.html`,
-      filename: './about.htmlx',
-      // minify: {
-      //   collapseWhitespace: true
-      // }
-    }),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/img`, to: `${PATHS.assets}img`},
       { from: `${PATHS.src}/fonts`, to: `${PATHS.assets}fonts`},
@@ -103,7 +90,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     ...PAGES.map(page => new HtmlWebpackPlugin({
       template: `${PAGES_DIR}/${page}`,
-      filename: `./${page}`
+      filename: `./${page.replace(/\.pug/,'.html')}`
     }))
   ]
 }

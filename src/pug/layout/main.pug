@@ -1,0 +1,16 @@
+block variables
+
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title #{title}
+    meta(name="description", content=description)
+    
+
+  body(class=pageClass)
+    .wrapper
+      #app
+        block content
+
