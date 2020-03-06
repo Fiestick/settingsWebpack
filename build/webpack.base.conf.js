@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -12,8 +13,8 @@ const PATHS = {
 }
 
 
-const PAGES_DIR = `${PATHS.src}/pages`
-
+const PAGES_DIR = `${PATHS.src}/pug/pages/`
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'))
 
 module.exports = {
   externals: {
@@ -99,6 +100,10 @@ module.exports = {
       { from: `${PATHS.src}/img`, to: `${PATHS.assets}img`},
       { from: `${PATHS.src}/fonts`, to: `${PATHS.assets}fonts`},
     ]),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    ...PAGES.map(page => new HtmlWebpackPlugin({
+      template: `${PAGES_DIR}/${page}`,
+      filename: `./${page}`
+    }))
   ]
 }
