@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const {VueLoaderPlugin} = require('vue-loader')
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -10,6 +11,8 @@ const PATHS = {
   assets: 'assets/',
 }
 
+
+const PAGES_DIR = `${PATHS.src}/pages`
 
 
 module.exports = {
@@ -29,6 +32,14 @@ module.exports = {
       loader: 'babel-loader',
       exclude: '/node_modules/'
     }, {
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        loader: {
+          scss: 'vue-style-loader!css-loader!sass-loader'
+        }
+      }
+    }, {
       test: /\.(png|jpg|gif|svg)$/,
       loader: 'url-loader',
       options: {
@@ -44,7 +55,7 @@ module.exports = {
           options: { sourceMap: true }
         }, {
           loader: 'postcss-loader',
-          options: { sourceMap: true, config: {path: `postcss.config.js`}}
+          options: { sourceMap: true, config: {path: `${PATHS.src}/postcss.config.js`}}
         }, {
           loader: 'sass-loader',
           options: { sourceMap: true }
@@ -58,15 +69,28 @@ module.exports = {
       }
     }]
   },
-
+  resolve:  {
+    alias: {
+      'vue$': 'vue/dist/vue.js'
+    }
+  }, 
   plugins: [
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename:  `${PATHS.assets}css/style.css`,
     }),
     new HtmlWebpackPlugin({
       hash: false,
-      template: `${PATHS.src}/index.html`,
+      template: `${PAGES_DIR}/index.html`,
       filename: './index.html',
+      // minify: {
+      //   collapseWhitespace: true
+      // }
+    }),
+    new HtmlWebpackPlugin({
+      hash: false,
+      template: `${PAGES_DIR}/about.html`,
+      filename: './about.htmlx',
       // minify: {
       //   collapseWhitespace: true
       // }
