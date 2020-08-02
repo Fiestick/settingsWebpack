@@ -1,0 +1,108 @@
+// px to rem
+@function rem($pixels, $context: $mainFontSize) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return $pixels / $context * 1rem;
+}
+
+@mixin size($width,$height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}
+
+@mixin flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin heading1 {
+  font-size: 56px;
+  font-weight: $font-bold;
+}
+@mixin heading2 {
+  font-size: 40px;
+  font-weight: $font-bold;
+}
+@mixin heading3 {
+  font-size: 32px;
+  font-weight: $font-bold;
+}
+@mixin heading4 {
+  font-size: 24px;
+  font-weight: $font-bold;
+}
+@mixin heading5 {
+  font-size: 20px;
+  font-weight: $font-bold;
+}
+@mixin heading6 {
+  font-size: 18px;
+  font-weight: $font-bold;
+}
+@mixin heading7 {
+  font-size: 16px;
+  font-weight: $font-bold;
+}
+
+@mixin heading1-mobile {
+  font-size: 40px;
+  font-weight: $font-bold;
+}
+@mixin heading2-mobile {
+  font-size: 28px;
+  font-weight: $font-bold;
+}
+
+@mixin text-info120 {
+  font-size: 20px;
+  line-height: 120%;
+}
+@mixin text-display120 {
+  font-size: 18px;
+  line-height: 120%;
+}
+@mixin caption {
+  font-weight: 450;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+@mixin caption-small {
+  font-weight: 450;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+@mixin text-small {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+}
+
+@mixin button-secondary{
+  background: $blue-grey30;
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 24px;
+  color: $white;
+  font-size: $text-display;
+  font-weight: $font-main;
+}
+@mixin button-primary{
+  background: $gradient-primary;
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 24px;
+  color: $white;
+  font-size: $text-display;
+  font-weight: $font-main;
+}
